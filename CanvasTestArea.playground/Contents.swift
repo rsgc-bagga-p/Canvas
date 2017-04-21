@@ -18,7 +18,26 @@ import Cocoa
 import PlaygroundSupport
 
 // Create a new canvas
-let canvas = Canvas(width: 300, height: 500)
+
+let canvas = Canvas(width: 500, height: 500)
+
+var word: String = "F-F++F-F++F-F++F-F++F-F++F-F"
+
+var word2: String = ""
+
+var axiom: String = "F++F++F"
+
+var rule: String = "F-F++F-F"
+
+var angle: Int = 60
+
+var distance: Int = 0
+
+let currentLenght: Int = 300
+
+let reduction: Int = 3
+
+let n: Int = 2
 
 // View the current state of the canvas
 canvas
@@ -27,6 +46,53 @@ canvas
 canvas.drawAxes()
 
 // Add code below...
+
+func createWord(iteration: Int) -> String {
+    
+    for _ in 1...iteration {
+        
+        for j in axiom.characters {
+            
+            if j == "F" {
+                word2.append(rule)
+            }
+                
+            else {
+                word2.append(j)
+            }
+            
+        }
+        
+    }
+    
+    return word2
+}
+
+createWord(iteration: n)
+
+distance = Int(Double(currentLenght) / pow(Double(reduction), Double(n)))
+
+// Add code below...
+for i in word2.characters {
+    
+    if i == "F" {
+        canvas.drawLine(fromX: 0, fromY: 0, toX: distance, toY: 0)
+        canvas.translate(byX: distance, byY: 0)
+        // Draw the axes
+        //canvas.drawAxes()
+    }
+    else if i == "-" {
+        canvas.rotate(by: Degrees(360-angle))
+        // Draw the axes
+        //canvas.drawAxes()
+    }
+    else if i == "+" {
+        canvas.rotate(by: Degrees(angle))
+        // Draw the axes
+        //canvas.drawAxes()
+    }
+    
+}
 
 
 /*:
